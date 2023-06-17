@@ -73,7 +73,14 @@ const userLongitude = x[1];
 const isInside = isInsideGeofence(userLatitude, userLongitude);
 document.write("<br>");
 document.write("Inside geofence : ",isInside);
-
+if (isInside) {
+        document.write('<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfJ41ievK2nIi1VZ9-l4tRAEOD9lEg2CzyLngcwO-4YZArOTQ/viewform?embedded=true" width="640" height="687" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>');
+          
+          
+        } else {
+          document.write('You are outside geofence Pratik 7');
+          
+        }
 }
 </script>
 
