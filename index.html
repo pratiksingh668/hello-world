@@ -1,7 +1,21 @@
-<html>
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>trykaro</title>
-<h1>Pratik Singh First Doc</h1>
-  <h2>best</h2>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        function colorChange() {
+
+            let r = parseInt(Math.random() * 254);
+            let g = parseInt(Math.random() * 254);
+            let b = parseInt(Math.random() * 254);
+            document.body.style.backgroundColor = 'rgb('+r+','+g+',300)';
+        }
+    </script>
+
 </head>
+<body>
+    <input type="button" value="ClicktoColorChange" onclick="colorChange()" />
+</body>
 </html>
