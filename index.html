@@ -1,21 +1,82 @@
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <script>
-        function colorChange() {
-
-            let r = parseInt(Math.random() * 254);
-            let g = parseInt(Math.random() * 254);
-            let b = parseInt(Math.random() * 254);
-            document.body.style.backgroundColor = 'rgb('+r+','+g+',300)';
-        }
-    </script>
-
-</head>
+<html>
+<head><h1>Geofencing</h1><head>
 <body>
-    <input type="button" value="ClicktoColorChange" onclick="colorChange()" />
+<button onclick="getLocation()">Try It</button>
+
+<script>
+var x=[45,99];
+// Define the geofence coordinates (latitude and longitude)
+const geofenceLatitude = 28.634196899999445;
+const geofenceLongitude = 77.44609400580485;
+// Define the geofence radius in meters
+const geofenceRadius = 10; // 10 meters
+function getLocation() 
+{
+  if (navigator.geolocation)
+ {
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+  } else { 
+    document.write( "Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+x[0]= position.coords.latitude;
+x[1]= position.coords.longitude;
+document.write(" updated Latitude: ",x[0] ); 
+document.write("<br> updated Longitude: " , x[1]);
+man();
+}
+
+
+
+
+// Function to check if a given position is within the geofence
+function isInsideGeofence(latitude, longitude) {
+  // Calculate the distance between the position and geofence center
+  const distance = calculateDistance(latitude, longitude, geofenceLatitude, geofenceLongitude);
+
+  // Check if the distance is within the geofence radius
+ 
+document.write("<br>");
+document.write("Distance : ",  distance);
+ return distance <= geofenceRadius;
+
+}
+
+// Function to calculate the distance between two points using Haversine formula
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the earth in km
+  const dLat = degToRad(lat2 - lat1);
+  const dLon = degToRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c * 1000; // Distance in meters
+  
+return distance;
+
+}
+
+// Function to convert degrees to radians
+function degToRad(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
+function man(){
+const userLatitude = x[0];
+const userLongitude = x[1];
+const isInside = isInsideGeofence(userLatitude, userLongitude);
+document.write("<br>");
+document.write("Inside geofence : ",isInside);
+
+}
+</script>
+
 </body>
 </html>
+
