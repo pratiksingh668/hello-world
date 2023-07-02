@@ -2,10 +2,86 @@
 <html>
 <head><h1>Geofencing</h1><head>
 <body>
-
+<button onclick="getLocation()">Try It</button>
 
 <script>
-document.write("outside ho tum")
+var x=[45,99];
+// Define the geofence coordinates (latitude and longitude)
+const geofenceLatitude = 28.634196899999445;
+const geofenceLongitude = 77.44609400580485;
+// Define the geofence radius in meters
+const geofenceRadius = 10; // 10 meters
+function getLocation() 
+{
+  if (navigator.geolocation)
+ {
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+  } else { 
+    document.write( "Geolocation is not supported by this browser.");
+  }
+}
+
+function showPosition(position) {
+x[0]= position.coords.latitude;
+x[1]= position.coords.longitude;
+document.write(" updated Latitude: ",x[0] ); 
+document.write("<br> updated Longitude: " , x[1]);
+man();
+}
+
+
+
+
+// Function to check if a given position is within the geofence
+function isInsideGeofence(latitude, longitude) {
+  // Calculate the distance between the position and geofence center
+  const distance = calculateDistance(latitude, longitude, geofenceLatitude, geofenceLongitude);
+
+  // Check if the distance is within the geofence radius
+ 
+document.write("<br>");
+document.write("Distance : ",  distance);
+ return distance <= geofenceRadius;
+
+}
+
+// Function to calculate the distance between two points using Haversine formula
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the earth in km
+  const dLat = degToRad(lat2 - lat1);
+  const dLon = degToRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c * 1000; // Distance in meters
+  
+return distance;
+
+}
+
+// Function to convert degrees to radians
+function degToRad(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
+function man(){
+const userLatitude = x[0];
+const userLongitude = x[1];
+const isInside = isInsideGeofence(userLatitude, userLongitude);
+document.write("<br>");
+document.write("Inside geofence : ",isInside);
+if (isInside) {
+        document.write('<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfJ41ievK2nIi1VZ9-l4tRAEOD9lEg2CzyLngcwO-4YZArOTQ/viewform?embedded=true" width="640" height="687" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>');
+          
+          
+        } else {
+          document.write('You are outside geofence Pratik 7');
+          
+        }
+}
 </script>
 
 </body>
